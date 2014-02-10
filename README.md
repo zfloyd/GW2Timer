@@ -1,2 +1,3 @@
-GW2Timer
-========
+﻿# GW2Timer
+
+
