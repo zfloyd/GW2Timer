@@ -1,5 +1,14 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+	h1= title
+	each server in Servers
+		div(class="container")
+			h2= server.Name
+			ul
+			each boss in Bosses
+				li
+					label= boss.Name
+						input(type="checkbox" value=boss.Name)
+	div(class="clear")
+	script(src='public/javascripts/index.js')

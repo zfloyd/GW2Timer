@@ -5,7 +5,6 @@
 
 var express = require('express');
 var routes = require('./routes');
-var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 
@@ -29,8 +28,34 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+
 app.get('/', routes.index);
-app.get('/users', user.list);
+
+var model = require('./models/models.js');
+var modelData = require('./data/data.js');
+
+app.post('/Update', express.bodyParser(), function(req,res){
+	console.log(req);
+
+	function GetStatusOfEvents(bosses, servers){
+		for (var i = 0; i < servers.length; i++){
+			var get_options = {
+			  host: 'https://api.guildwars2.com',
+			  port: '80',
+			  path: '/v1/events.json?world_id=' + server[i].ID,
+			  method: 'GET'
+			};
+
+			var get_req = http.request(get_options, function(res) {
+				var jsonStr = '';
+				res.on('data', function (chunk) {
+					jsonStr += chunk;
+					console.log(jsonStr);
+				});
+			});
+		}
+	}
+});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

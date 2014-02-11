@@ -3,5 +3,12 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 a {
-  color: #00b7ff;
+  color: #00B7FF;
+}
+.container {
+  float: left;
+  width: 25%;
+}
+.clear {
+  clear: both;
 }
