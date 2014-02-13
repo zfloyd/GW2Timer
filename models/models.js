@@ -12,4 +12,5 @@ exports.EventClass = function(id, name){
 exports.ServerClass = function(id, name){
     this.ID = id;
     this.Name = name;
+	this.Bosses = [];
 }

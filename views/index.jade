@@ -2,13 +2,22 @@ extends layout
 
 block content
 	h1= title
+	label
+		span="Show All"
+		input(type="checkbox" id="uxShowAll")
+	label
+		span="Play Sound"
+		input(type="checkbox" id="uxPlaySound" checked=true)
 	each server in Servers
 		div(class="container")
 			h2= server.Name
-			ul
-			each boss in Bosses
-				li
-					label= boss.Name
-						input(type="checkbox" value=boss.Name)
+			ul(class="bossList" data-id=server.ID)
+				each boss in Bosses
+					li(data-id=boss.Name)
+						label= boss.Name
+							input(type="checkbox" value=boss.Name)
+							span(class="status")="Not Up"
 	div(class="clear")
-	script(src='public/javascripts/index.js')
+	button(id="refresh")="Refresh"
+	div(id="forSound")
+	script(src='/javascripts/index.js')

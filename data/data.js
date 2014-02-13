@@ -48,7 +48,5 @@ Servers.push(new model.ServerClass(1013, "SoR"));
 Servers.push(new model.ServerClass(1008, "Jade Quarry"));
 Servers.push(new model.ServerClass(1005, "Maguuma"));
 
-
-
 exports.Bosses = Bosses;
 exports.Servers = Servers;

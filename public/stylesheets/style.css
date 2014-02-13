@@ -12,3 +12,6 @@ a {
 .clear {
   clear: both;
 }
+.bossList .active {
+  background-color: #90ee90;
+}
