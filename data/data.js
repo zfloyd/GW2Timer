@@ -44,9 +44,31 @@ Bosses.push(new model.BossClass("Karka Queen", KarkaQueenEvents));
 Bosses.push(new model.BossClass("Maw", MawEvents));
 Bosses.push(new model.BossClass("SB", SBEvents));
 
-Servers.push(new model.ServerClass(1013, "SoR"));
-Servers.push(new model.ServerClass(1008, "Jade Quarry"));
-Servers.push(new model.ServerClass(1005, "Maguuma"));
+Servers.push(new model.ServerClass(1013, "Sanctum of Rall", true));
+Servers.push(new model.ServerClass(1008, "Jade Quarry", true));
+Servers.push(new model.ServerClass(1005, "Maguuma", true));
+
+Servers.push(new model.ServerClass(1019, "Blackgate", false));
+Servers.push(new model.ServerClass(1017, "Tarnished Coast", false));
+Servers.push(new model.ServerClass(1003, "Yak's Bend", false));
+Servers.push(new model.ServerClass(1022, "Kaineng", false));
+Servers.push(new model.ServerClass(1011, "Stormbluff Isle", false));
+Servers.push(new model.ServerClass(1016, "Sea of Sorrows", false));
+Servers.push(new model.ServerClass(1015, "Isle of Janthir", false));
+Servers.push(new model.ServerClass(1007, "Gate of Madness", false));
+Servers.push(new model.ServerClass(1014, "Crystal Desert", false));
+Servers.push(new model.ServerClass(1018, "Northern Shiverpeaks", false));
+Servers.push(new model.ServerClass(1010, "Ehmry Bay", false));
+Servers.push(new model.ServerClass(1020, "Ferguson's Crossing", false));
+Servers.push(new model.ServerClass(1002, "Borlis Pass", false));
+Servers.push(new model.ServerClass(1021, "Dragonbrand", false));
+Servers.push(new model.ServerClass(1004, "Henge of Denravi", false));
+Servers.push(new model.ServerClass(1006, "Sorrow's Furnace", false));
+Servers.push(new model.ServerClass(1001, "Anvil Rock", false));
+Servers.push(new model.ServerClass(1023, "Devona's Rest", false));
+Servers.push(new model.ServerClass(1009, "Fort Aspenwood", false));
+Servers.push(new model.ServerClass(1024, "Eredon Terrace", false));
+Servers.push(new model.ServerClass(1012, "Darkhaven", false));
 
 exports.Bosses = Bosses;
 exports.Servers = Servers;

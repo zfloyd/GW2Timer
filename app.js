@@ -36,15 +36,22 @@ app.get('/', routes.index);
 var modelData = require('./data/data.js');
 
 global.gw2JSONInMemory = [];
-app.post('/Update', express.bodyParser(), function(req,res){	
+app.post('/Update', express.bodyParser(), function(req,res){
+	var serverInput = req.body.servers;
+	if (!serverInput)
+		return;
+	var selectedServers = [];
+	for (var i = 0; i < serverInput.length; i++){
+		selectedServers.push(modelData.Servers.filter(function(x){return x.ID.toString() == serverInput[i];})[0]);
+	}
 	GetStatusOfEvents();
 	function GetStatusOfEvents(){	
 		if (global.gw2JSONInMemory.length == 3){
 			SendResponse(res);
 			return;
 		}
-		for (var i = 0; i < modelData.Servers.length; i++){
-			var server = modelData.Servers[i];
+		for (var i = 0; i < selectedServers.length; i++){
+			var server = selectedServers[i];
 			https.get(url.parse('https://api.guildwars2.com/v1/events.json?world_id=' + server.ID), function(extRes) {
 				var jsonStr = '';
 				extRes.on('data', function (chunk) {
@@ -63,8 +70,8 @@ app.post('/Update', express.bodyParser(), function(req,res){
 	}
 
 	function SendResponse(res){
-		for (var i = 0; i < modelData.Servers.length; i++){
-			var server = modelData.Servers[i];
+		for (var i = 0; i < selectedServers.length; i++){
+			var server = selectedServers[i];
 			if (server.Bosses.length == 0)
 				server.Bosses = JSON.parse(JSON.stringify(modelData.Bosses));
 			var dataJson;
@@ -87,7 +94,7 @@ app.post('/Update', express.bodyParser(), function(req,res){
 				}
 			}		
 		}
-		res.json(modelData.Servers);
+		res.json(selectedServers);
 	}
 });
 

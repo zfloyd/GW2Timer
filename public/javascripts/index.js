@@ -17,6 +17,10 @@
 		UpdateBossVisibility();
 	});
 
+	$("select").change(function(){
+		RefreshData();
+	});
+
 	$("#refresh").click(function(){
 		RefreshData();
 		return false;
@@ -34,16 +38,28 @@
 			$(".bossList input:checked").parents("li").hide();
 	}
 
-	function RefreshData(){		
+	function RefreshData(){
+		var selectedServers = [];
+		$("select").each(function(){
+			selectedServers.push($(this).val());
+		});
 		$.ajax({
 			url: '/Update',
 			dataType: "json",
 			type: 'POST',
+			cache: false,
+			data: {servers: selectedServers },
 			success: function (data){
-				var dingDingDing = false;
+				var bossAlert;
 				for (var i = 0; i < data.length; i++){
 					var server = data[i];
-					var serverElement = $("ul[data-id='" + server.ID + "']");
+					var serverElement;
+					$("select").each(function(){																									 
+						if ($(this).val() == server.ID.toString()){
+							serverElement = $(this).siblings("ul");
+							return;
+						}
+					});
 					for (var j = 0; j < server.Bosses.length; j++){
 						var boss = server.Bosses[j];
 						var bossElement = serverElement.find("li[data-id='" + boss.Name + "']");
@@ -55,23 +71,26 @@
 							if (event.Status){
 								activeEvent = true;
 								if (bossElement.find(".status").html() != event.Name)
-									dingDingDing = true;
+									bossAlert = boss.Name + (event.Name == "Active" ? " is up" : " is in pre");
 								bossElement.find(".status").html(event.Name);
 								if (event.Name == "Active")
-									bossElement.addClass("active");
+									bossElement.removeClass("warmup").addClass("active");
 								else
-									bossElement.removeClass("active");
+									bossElement.removeClass("active").addClass("warmup");
 								break;
 							}
 						}
 						if (!activeEvent){
 							bossElement.find(".status").html("Not Up");
-							bossElement.removeClass("active");
+							bossElement.removeClass("active").removeClass("warmup");
 						}
 					}
 				}
-				if (dingDingDing && $("#uxPlaySound").is(":checked"))
-					document.getElementById("forSound").innerHTML= "<embed src=\"resources/bell-ringing-04.mp3\" hidden=\"true\" autostart=\"true\" loop=\"false\" />";
+				if (bossAlert && $("#uxPlaySound").is(":checked"))
+				{
+					var url = /chrom(e|ium)/.test(navigator.userAgent.toLowerCase()) ? "http://translate.google.com/translate_tts?ie=UTF-8&tl=en&q=" + bossAlert : "resources/bell-ringing-04.mp3";
+					document.getElementById("forSound").innerHTML= '<embed src="' + url + '" hidden="true" autostart="true" loop="false" />';
+				}
 			},
 			error: function (xhr, status, error) {
 				console.log('Error: ' + error.message);

@@ -15,3 +15,6 @@ a {
 .bossList .active {
   background-color: #90ee90;
 }
+.bossList .warmup {
+  background-color: #428bca;
+}

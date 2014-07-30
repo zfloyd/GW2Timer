@@ -8,10 +8,12 @@ block content
 	label
 		span="Play Sound"
 		input(type="checkbox" id="uxPlaySound" checked=true)
-	each server in Servers
+	each server in SelectedServers
 		div(class="container")
-			h2= server.Name
-			ul(class="bossList" data-id=server.ID)
+			select
+				for item in Servers
+					option(selected=server.ID == item.ID value=item.ID) #{item.Name}
+			ul(class="bossList list-unstyled")
 				each boss in Bosses
 					li(data-id=boss.Name)
 						label= boss.Name

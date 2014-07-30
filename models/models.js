@@ -9,8 +9,9 @@ exports.EventClass = function(id, name){
     this.Status = false;
 }
 
-exports.ServerClass = function(id, name){
+exports.ServerClass = function(id, name, selected){
     this.ID = id;
     this.Name = name;
+	this.Selected = selected;
 	this.Bosses = [];
 }
